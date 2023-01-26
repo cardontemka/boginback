@@ -7,7 +7,7 @@ exports.getUsers = async (req, res) => {
             {
                 password: 0,
             }
-        );
+        ).populate('links');
         res.send(users);
     } catch (error) {
         res.send(error);
@@ -28,3 +28,16 @@ exports.createUser = async (req, res) => {
         res.send(error);
     }
 };
+
+exports.createLink = async (req, res) => {
+    const id = req.params.id;
+    const { linkId } = req.body || {};
+    try {
+        const result = await User.findByIdAndUpdate(id, {
+            $push: { links: linkId }
+        });
+        res.send(result);
+    } catch (error) {
+        res.send(error);
+    }
+}

@@ -7,8 +7,8 @@ exports.authMiddleware = (req, res, next) => {
   if (!token) return res.send("Authorization token is required");
 
   try {
-      const payload = jwt.verify(token, process.env.JWT_SECRET);
-//   if (!payload) return res.send("Unauthorized");
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    //   if (!payload) return res.send("Unauthorized");
   } catch (error) {
     throw res.send(error);
   }

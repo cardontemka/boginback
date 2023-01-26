@@ -3,6 +3,7 @@ const connect = require("./common/config/db");
 const cors = require("cors");
 const { userRoutes } = require("./routes/userRouter");
 const { authRouter } = require("./routes/authRouter");
+const { linkRoutes } = require("./routes/linkRouter");
 require('dotenv').config();
 
 const app = express();
@@ -16,6 +17,7 @@ connect();
 
 app.use(userRoutes)
 app.use(authRouter)
+app.use(linkRoutes)
  
 app.get('/', (req, res) => {
     res.send('Wasup Word!')
