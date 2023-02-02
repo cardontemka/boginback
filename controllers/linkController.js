@@ -1,3 +1,4 @@
+const shortid = require("shortid");
 const { Link } = require("../models/linkModel");
 
 exports.postLink = async (req, res) => {
@@ -5,7 +6,8 @@ exports.postLink = async (req, res) => {
 
     try {
         const link = new Link({
-            url
+            url,
+            short: shortid.generate()
         });
         await link.save();
         res.send(link);
@@ -20,5 +22,26 @@ exports.getLinks = async (req, res) => {
         res.send(link);
     } catch (error) {
         res.send(error);
+    }
+};
+
+exports.deleteLink = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const result = await Link.findByIdAndDelete(id);
+        res.send(result);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
+exports.getShortLink = async (req, res) => {
+    try {
+        const shortLink = await Link.findOne({ short: req.params.id });
+        if (shortLink == null) return res.status(404);
+        res.redirect(shortLink.url);
+    } catch (error) {
+        res.send(error)
     }
 };
