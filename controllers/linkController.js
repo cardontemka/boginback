@@ -2,11 +2,12 @@ const shortid = require("shortid");
 const { Link } = require("../models/linkModel");
 
 exports.postLink = async (req, res) => {
-    const { url } = req.body || {};
+    const { url, author_id } = req.body || {};
 
     try {
         const link = new Link({
             url,
+            author_id,
             short: shortid.generate()
         });
         await link.save();
