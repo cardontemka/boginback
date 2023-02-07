@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const { authMiddleware } = require('../common/middleware/authMiddleware');
-const { postLink } = require('../controllers/linkController');
-const { getUsers, createUser, createLink } = require("../controllers/userController");
+const { getUsers, getUser } = require("../controllers/userController");
 
-exports.userRoutes = Router().get('/users',  getUsers).post('/users', createUser).put('/user/:id', createLink);
+exports.userRoutes = Router().get('/users',  getUsers).get('/user/:id', getUser);

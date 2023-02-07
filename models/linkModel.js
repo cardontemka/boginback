@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const linkSchema = new Schema(
+const LinkSchema = new Schema(
     {
         url: {
             type: String,
@@ -22,5 +22,5 @@ const linkSchema = new Schema(
     }
 )
 
-const Link = model('Link', linkSchema);
+const Link = model('Link', LinkSchema);
 exports.Link = Link;
