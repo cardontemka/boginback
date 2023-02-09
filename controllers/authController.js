@@ -25,18 +25,17 @@ exports.login = async (req, res) => {
   const { email, password } = req.body || {};
 
   if (!email || !password)
-    return res.send("email, password and email is required");
-
+    return res.status(400).send("email, password and email is required");
   try {
     const user = await User.findOne({ email });
 
     const token = generateToken({ email, password });
 
     const isEqual = await bcrypt.compare(password, user.password);
-    if (isEqual) return res.send(token);
+    if (isEqual) return res.send({ user: user , token: token });
 
-    res.send("Your password is incorrect");
+    res.status(400).send("Your password is incorrect");
   } catch (error) {
-    throw res.send("User not found");
+    res.status(400).send("User not found");
   }
 };
